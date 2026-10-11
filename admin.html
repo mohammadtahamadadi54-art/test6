@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Admin | Game Store Madadi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#06071a;--c1:#7c5cff;--c2:#19d3ff;--c3:#ff4d8d;--ok:#2ee59d;--warn:#ffc857;--bad:#ff5d73;--gl:rgba(255,255,255,.055);--bd:rgba(255,255,255,.11);--tx:#eef0ff;--mu:#9aa0c7;--ez:cubic-bezier(.16,1,.3,1);--sp:cubic-bezier(.34,1.56,.64,1)}
+*{box-sizing:border-box;margin:0}
+body{font-family:Vazirmatn,Tahoma,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+#bg,#cf{position:fixed;inset:0;z-index:-1;pointer-events:none}#cf{z-index:200}
+.aur{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.aur i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(100px);opacity:.38;animation:fl 20s ease-in-out infinite alternate}
+.aur i:nth-child(1){background:var(--c1);top:-25%;right:-10%}.aur i:nth-child(2){background:var(--c2);bottom:-35%;left:-15%;animation-duration:27s}.aur i:nth-child(3){background:var(--c3);top:35%;left:35%;width:30vmax;height:30vmax;opacity:.2;animation-duration:33s}
+@keyframes fl{to{transform:translate(9vmax,-7vmax) scale(1.3) rotate(50deg)}}
+#cg{position:fixed;left:0;top:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,255,.22),transparent 65%);pointer-events:none;z-index:-1;will-change:transform}
+.gl{background:var(--gl);border:1px solid var(--bd);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:22px}
+.hide{display:none!important}.mu{color:var(--mu);font-size:.88rem}h1{font-size:1.45rem}
+/* ورود */
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.lc{width:min(410px,100%);padding:40px 32px;text-align:center;position:relative;animation:pop 1s var(--ez) both;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.lc:before{content:"";position:absolute;inset:-2px;border-radius:24px;padding:2px;background:conic-gradient(from var(--a,0deg),var(--c1),var(--c2),var(--c3),var(--c1));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:rot 5s linear infinite;opacity:.8;pointer-events:none}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}@keyframes rot{to{--a:360deg}}
+.lc.out{animation:out .7s var(--ez) forwards}.lc.bad{animation:shake .5s}
+@keyframes pop{from{opacity:0;transform:translateY(50px) scale(.88);filter:blur(12px)}}@keyframes out{to{opacity:0;transform:scale(1.2);filter:blur(16px)}}@keyframes shake{20%,60%{translate:-12px}40%,80%{translate:12px}}
+.logo{width:84px;height:84px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;font-size:36px;position:relative;background:#0b0c26;animation:flo 4s ease-in-out infinite}
+.logo:before{content:"";position:absolute;inset:-4px;border-radius:50%;background:conic-gradient(var(--c1),var(--c2),var(--c3),var(--c1));z-index:-1;animation:spin 3s linear infinite;filter:blur(3px)}
+@keyframes spin{to{transform:rotate(1turn)}}@keyframes flo{50%{transform:translateY(-8px)}}
+.glt{background:linear-gradient(90deg,#fff,var(--c2),var(--c3),#fff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:bg 6s linear infinite}
+.fld{position:relative;margin-top:18px}.fld input{width:100%;padding:15px 16px;border-radius:14px;border:1px solid var(--bd);background:rgba(255,255,255,.05);color:var(--tx);font:inherit;outline:0;transition:.35s var(--ez);direction:ltr;text-align:left}
+.fld input:focus{border-color:var(--c2);box-shadow:0 0 0 4px rgba(25,211,255,.14),0 0 34px rgba(25,211,255,.2);transform:translateY(-2px)}
+.eye{position:absolute;left:12px;top:50%;translate:0 -50%;background:none;border:0;cursor:pointer;font-size:18px;opacity:.7}.fld input.pw{padding-left:44px}
+.btn{position:relative;overflow:hidden;border:0;cursor:pointer;font:inherit;font-weight:700;color:#fff;padding:13px 22px;border-radius:14px;background:linear-gradient(120deg,var(--c1),var(--c2),var(--c3),var(--c1));background-size:300% 100%;animation:bg 6s linear infinite;transition:transform .3s var(--ez),box-shadow .3s}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 34px rgba(124,92,255,.5)}.btn:active{transform:scale(.96)}.btn:disabled{opacity:.4;pointer-events:none}.btn.w{width:100%;margin-top:22px}.btn.sm{padding:9px 16px;font-size:.85rem}.btn.g{background:var(--gl);border:1px solid var(--bd);animation:none}.btn.done{background:var(--ok);animation:none}
+@keyframes bg{to{background-position:300% 0}}
+.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:rp .7s ease-out forwards;pointer-events:none}@keyframes rp{to{transform:scale(4);opacity:0}}
+.err{color:var(--bad);min-height:22px;margin-top:12px;font-size:.88rem}
+/* اپ */
+#app{display:grid;grid-template-columns:262px 1fr;min-height:100vh}
+aside{margin:16px;padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:16px;height:calc(100vh - 32px);animation:sl .9s var(--ez) both}@keyframes sl{from{opacity:0;transform:translateX(70px)}}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;padding:2px 10px 18px}
+.brand b{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--c1),var(--c3));animation:pulse 3s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(124,92,255,.6)}70%,100%{box-shadow:0 0 0 14px rgba(124,92,255,0)}}
+nav{position:relative;display:flex;flex-direction:column;gap:6px}
+.ind{position:absolute;right:0;left:0;border-radius:14px;background:linear-gradient(270deg,rgba(124,92,255,.34),rgba(25,211,255,.06));border-right:3px solid var(--c2);transition:top .55s var(--sp),height .4s var(--ez);box-shadow:0 0 28px rgba(124,92,255,.25)}
+.nv{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:14px;border:0;background:none;color:var(--mu);font:inherit;cursor:pointer;text-align:right;transition:.35s var(--ez)}
+.nv span{display:inline-block;transition:.4s var(--sp)}.nv:hover{color:var(--tx);transform:translateX(-6px)}.nv:hover span{transform:scale(1.35) rotate(-12deg)}.nv.on{color:#fff}
+.sp{flex:1}
+main{padding:24px 14px 50px 26px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.live{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:30px;font-size:.82rem}.live i{width:9px;height:9px;border-radius:50%;background:var(--ok);animation:ping 1.6s infinite}@keyframes ping{0%{box-shadow:0 0 0 0 rgba(46,229,157,.8)}100%{box-shadow:0 0 0 12px transparent}}
+.rv{animation:rise .8s var(--ez) both;animation-delay:calc(var(--i,0)*70ms)}@keyframes rise{from{opacity:0;transform:translateY(34px) scale(.96);filter:blur(6px)}}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.g2{grid-template-columns:2fr 1fr;margin-top:16px}
+.st{padding:22px;position:relative;overflow:hidden;transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,border-color .3s}.st:hover{border-color:rgba(124,92,255,.6)}
+.st:after,.pc:after{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0),rgba(255,255,255,.15),transparent 60%);opacity:0;transition:.3s;pointer-events:none}.st:hover:after,.pc:hover:after{opacity:1}
+.ic{font-size:26px;display:inline-block;animation:bob 3s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-7px) rotate(-8deg)}}
+.n{font-size:1.9rem;font-weight:800;margin-top:8px;background:linear-gradient(90deg,#fff,var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{padding:22px}.card h3{margin-bottom:14px;font-size:1.05rem}svg{max-width:100%}
+.ln{fill:none;stroke:url(#lg);stroke-width:3;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dr 2.2s var(--ez) .4s forwards;filter:drop-shadow(0 0 8px #7c5cff)}.ar{fill:url(#ag);opacity:0;animation:fi 1.2s ease 1.3s forwards}
+.dt{fill:#fff;opacity:0;animation:fi .5s ease forwards;transform-box:fill-box;transform-origin:center;transition:.3s}.dt:hover{transform:scale(2)}.lp{fill:var(--c2);animation:lp 1.6s infinite 2s;transform-box:fill-box;transform-origin:center;opacity:0}
+@keyframes dr{to{stroke-dashoffset:0}}@keyframes fi{to{opacity:1}}@keyframes lp{0%{transform:scale(1);opacity:.9}100%{transform:scale(4.5);opacity:0}}
+.bar{height:10px;border-radius:10px;background:rgba(255,255,255,.08);overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;width:0;border-radius:10px;background:linear-gradient(90deg,var(--c1),var(--c2));transition:width 1.5s var(--ez);position:relative;overflow:hidden}.bar i:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-100%);animation:sh 2.2s infinite}@keyframes sh{to{transform:translateX(100%)}}
+.bar.w i{background:linear-gradient(90deg,var(--warn),var(--c3))}.bar.z i{background:var(--bad)}
+.tb{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.chip{padding:8px 16px;border-radius:30px;border:1px solid var(--bd);background:var(--gl);color:var(--mu);cursor:pointer;font:inherit;transition:.35s var(--sp)}.chip:hover{transform:translateY(-3px)}.chip.on{background:linear-gradient(120deg,var(--c1),var(--c2));color:#fff;border-color:transparent;transform:scale(1.08)}
+.sr{flex:1;min-width:180px;padding:10px 16px;border-radius:30px;border:1px solid var(--bd);background:rgba(255,255,255,.05);color:var(--tx);font:inherit;outline:0;transition:.35s var(--ez)}.sr:focus{border-color:var(--c2);box-shadow:0 0 24px rgba(25,211,255,.25)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:separate;border-spacing:0 8px;min-width:640px}th{color:var(--mu);font-weight:600;font-size:.8rem;text-align:right;padding:0 14px}
+td{padding:14px;background:rgba(255,255,255,.04);text-align:right;font-size:.9rem}td:first-child{border-radius:0 14px 14px 0}td:last-child{border-radius:14px 0 0 14px}
+tbody tr{animation:rise .6s var(--ez) both;animation-delay:calc(var(--i)*45ms);transition:.3s var(--ez);cursor:pointer}tbody tr:hover{transform:translateX(-8px) scale(1.01)}tbody tr:hover td{background:rgba(124,92,255,.18)}
+.bd{padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;display:inline-block}.paid{background:rgba(46,229,157,.15);color:var(--ok)}.failed{background:rgba(255,93,115,.15);color:var(--bad)}.pending{background:rgba(255,200,87,.15);color:var(--warn);animation:bl 1.6s infinite}@keyframes bl{50%{opacity:.5}}
+.pg{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:10px}
+/* محصولات */
+.pgrid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.pc{position:relative;overflow:hidden;padding:0;transform:perspective(800px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.pc .im{height:130px;background:#12132e;position:relative;overflow:hidden}.pc .im img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ez)}.pc:hover .im img{transform:scale(1.15)}.pc .im:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(6,7,26,.95))}
+.pc .im .bd{position:absolute;top:10px;right:10px;z-index:2;backdrop-filter:blur(6px)}
+.pc .bo{padding:14px 18px 18px}.pc h4{margin-bottom:10px}.row{display:flex;gap:10px}.row label{flex:1;font-size:.75rem;color:var(--mu)}
+.pin{width:100%;margin-top:4px;padding:9px;border-radius:10px;border:1px solid var(--bd);background:rgba(255,255,255,.06);color:var(--tx);font:inherit;direction:ltr;text-align:center;outline:0;transition:.3s}.pin:focus{border-color:var(--c2);box-shadow:0 0 18px rgba(25,211,255,.3)}
+.fl{font-size:.75rem;color:var(--mu);display:block}.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.md.big{width:min(580px,100%);max-height:92vh;overflow:auto}.pin.t{text-align:right;direction:auto}input[type=color].pin{padding:2px;height:40px;cursor:pointer}.cb{display:inline-flex;gap:6px;align-items:center;padding:6px 12px;border-radius:20px;border:1px solid var(--bd);cursor:pointer;font-size:.85rem}.cb input,.sw input{accent-color:var(--c1)}.sw{display:flex;gap:10px;align-items:center;margin-top:14px;cursor:pointer}.btn.r{background:linear-gradient(120deg,#ff5d73,#ff4d8d);animation:none}.hid img{filter:grayscale(1) brightness(.6)}
+/* لاگ */
+.tl{position:relative;padding-right:26px}.tl:before{content:"";position:absolute;right:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--c1),var(--c2),transparent)}
+.ev{position:relative;padding:12px 16px;margin-bottom:10px;border-radius:14px;background:rgba(255,255,255,.04);animation:rise .6s var(--ez) both;animation-delay:calc(var(--i)*40ms);font-size:.88rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ev:before{content:"";position:absolute;right:-23px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--c2);box-shadow:0 0 12px var(--c2)}.ev.f:before{background:var(--bad);box-shadow:0 0 12px var(--bad)}
+.ov{position:fixed;inset:0;background:rgba(4,5,18,.65);backdrop-filter:blur(9px);display:grid;place-items:center;z-index:50;padding:16px;animation:fi .3s both}
+.md{width:min(480px,100%);padding:28px;animation:pm .6s var(--sp) both}@keyframes pm{from{opacity:0;transform:scale(.6) translateY(50px) rotate(-3deg)}}
+.md p{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--bd);font-size:.9rem;gap:12px}
+.toasts{position:fixed;bottom:22px;left:22px;display:grid;gap:10px;z-index:99}
+.ts{padding:14px 20px;border-radius:14px;background:#17183a;border:1px solid var(--bd);border-right:4px solid var(--ok);animation:ti .6s var(--sp) both;box-shadow:0 10px 30px rgba(0,0,0,.4)}.ts.e{border-right-color:var(--bad)}.ts.x{animation:to .4s forwards}
+@keyframes ti{from{opacity:0;transform:translateX(-90px)}}@keyframes to{to{opacity:0;transform:translateX(-90px)}}
+.sk{height:120px;border-radius:22px;background:linear-gradient(90deg,var(--gl) 25%,rgba(255,255,255,.12) 50%,var(--gl) 75%);background-size:200% 100%;animation:skl 1.2s infinite}@keyframes skl{to{background-position:-200% 0}}
+@media(max-width:860px){#app{grid-template-columns:1fr}aside{position:fixed;inset:auto 8px 8px 8px;top:auto;margin:0;height:auto;flex-direction:row;padding:8px;z-index:60}nav{flex-direction:row;flex:1;justify-content:space-around}.ind,.brand,.sp{display:none}.nv{padding:10px;flex-direction:column;gap:2px;font-size:.7rem}.nv.on{background:rgba(124,92,255,.3)}main{padding:12px 12px 100px}.g2{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}}
+</style></head><body>
+<div class="aur"><i></i><i></i><i></i></div><canvas id="bg"></canvas><canvas id="cf"></canvas><div id="cg"></div>
+<section id="login"><form class="gl lc tilt" id="lf">
+<div class="logo">🎮</div><h1 class="glt">ورود به پنل مدیریت</h1><p class="mu" style="margin-top:6px">Nexus Admin · Game Store Madadi</p>
+<div class="fld"><input id="u" placeholder="نام کاربری" autocomplete="username" required></div>
+<div class="fld"><input id="p" class="pw" type="password" placeholder="رمز عبور" autocomplete="current-password" required><button type="button" class="eye" id="ey" aria-label="نمایش رمز">👁️</button></div>
+<p id="ln" class="hide" style="margin-top:14px;color:var(--warn);font-size:.8rem">🧪 حالت محلی (بدون سرور)</p><div class="err" id="er"></div><button class="btn w">ورود به پنل ⚡</button></form></section>
+<div id="app" class="hide">
+<aside class="gl"><div class="brand"><b>🎮</b><span class="glt">Nexus Admin</span></div>
+<nav><div class="ind" id="ind"></div><button class="nv on" data-v="dash"><span>📊</span>داشبورد</button><button class="nv" data-v="orders"><span>🧾</span>سفارش‌ها</button><button class="nv" data-v="prods"><span>🕹️</span>محصولات</button><button class="nv" data-v="cust"><span>👥</span>مشتریان</button><button class="nv" data-v="sett"><span>⚙️</span>تنظیمات سایت</button><button class="nv" data-v="log"><span>🛡️</span>گزارش امنیتی</button></nav>
+<div class="sp"></div><button class="nv" id="lo"><span>🚪</span>خروج</button></aside>
+<main><div class="top rv"><div><h1 id="tt">داشبورد</h1><p class="mu" id="sub"></p></div>
+<div style="display:flex;gap:10px;align-items:center"><span class="gl live"><i></i>زنده · <b id="ck" dir="ltr"></b></span><a class="btn g sm" href="/" target="_blank" style="text-decoration:none">مشاهدهٔ سایت ↗</a></div></div><div id="lb" class="gl hide" style="padding:10px 16px;margin-bottom:16px;border-color:rgba(255,200,87,.5);color:var(--warn);font-size:.88rem">🧪 حالت محلی (بدون سرور): اطلاعات فقط در همین مرورگر ذخیره می‌شود و روی سایت واقعی اثری ندارد. برای کنترل سایت واقعی، پنل را از آدرس سرور باز کنید.</div><div id="view"></div></main></div>
+<div class="toasts" id="ts"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],fa=n=>Number(n).toLocaleString("fa-IR"),esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let LOCAL=false,CSRF="",LAST=null,VIEW="dash",POLL,OF={st:"",q:"",pg:1};
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const api=async(u,o={})=>{if(LOCAL)return lapi(u,o);const r=await fetch(u,{...o,headers:{"Content-Type":"application/json","X-CSRF-Token":CSRF},body:o.body?JSON.stringify(o.body):undefined}).catch(()=>{throw new Error("اتصال به سرور برقرار نشد. مطمئن شوید سرور روشن است و پنل را از آدرس خودِ سرور (مثلاً http://localhost:3000/admin) باز کرده‌اید، نه به‌صورت فایل یا از پورت دیگر.")});const j=await r.json().catch(()=>({}));
+ if(r.status===401&&!u.includes("login")){showLogin();throw new Error("نشست منقضی شد")}if(!r.ok)throw new Error(j.error||"خطا");return j};
+function toast(m,e){const t=document.createElement("div");t.className="ts"+(e?" e":"");t.textContent=m;$("#ts").append(t);setTimeout(()=>{t.classList.add("x");setTimeout(()=>t.remove(),400)},3600)}
+/* پس‌زمینهٔ زنده: شبکهٔ ذرات واکنش‌گرا به ماوس */
+(()=>{const c=$("#bg"),x=c.getContext("2d");let w,h,P=[];const m={x:-999,y:-999};
+ const rs=()=>{w=c.width=innerWidth;h=c.height=innerHeight;P=Array.from({length:Math.min(95,w*h/16000|0)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.55,vy:(Math.random()-.5)*.55,r:Math.random()*1.8+.6}))};
+ rs();addEventListener("resize",rs);
+ addEventListener("pointermove",e=>{m.x=e.clientX;m.y=e.clientY;$("#cg").style.transform=`translate(${m.x}px,${m.y}px)`});
+ if(RM)return;
+ (function f(){x.clearRect(0,0,w,h);
+  for(const p of P){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+   const dx=p.x-m.x,dy=p.y-m.y,d=Math.hypot(dx,dy);if(d<150&&d>0){p.x+=dx/d*1.8;p.y+=dy/d*1.8}
+   x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle="rgba(150,180,255,.7)";x.fill()}
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);if(d<125){x.strokeStyle=`rgba(124,140,255,${(1-d/125)*.28})`;x.beginPath();x.moveTo(P[i].x,P[i].y);x.lineTo(P[j].x,P[j].y);x.stroke()}}
+  requestAnimationFrame(f)})()})();
+function boom(px,py){if(RM)return;const c=$("#cf"),x=c.getContext("2d"),cs=["#7c5cff","#19d3ff","#ff4d8d","#2ee59d","#ffc857"];c.width=innerWidth;c.height=innerHeight;
+ const P=Array.from({length:90},()=>({x:px,y:py,vx:(Math.random()-.5)*16,vy:Math.random()*-14-3,s:Math.random()*8+4,c:cs[Math.random()*5|0],r:Math.random()*6,vr:(Math.random()-.5)*.4}));let t=0;
+ (function f(){x.clearRect(0,0,c.width,c.height);for(const p of P){p.vy+=.45;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/2,p.s,p.s*.5);x.restore()}
+  if(++t<120)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+document.addEventListener("click",e=>{const b=e.target.closest(".btn");if(!b)return;const r=b.getBoundingClientRect(),s=document.createElement("span"),d=Math.max(r.width,r.height);s.className="rp";s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;b.append(s);setTimeout(()=>s.remove(),700)});
+document.addEventListener("mousemove",e=>{const c=e.target.closest(".st,.pc,.tilt");if(!c)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height,k=c.classList.contains("tilt")?8:12;
+ c.style.setProperty("--ry",(x-.5)*-k+"deg");c.style.setProperty("--rx",(y-.5)*k+"deg");c.style.setProperty("--mx",x*100+"%");c.style.setProperty("--my",y*100+"%")});
+document.addEventListener("mouseout",e=>{const c=e.target.closest(".st,.pc,.tilt");if(c&&!c.contains(e.relatedTarget)){c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg")}});
+function countUp(el,to,f){const t0=performance.now(),D=1600;(function s(t){const k=Math.min((t-t0)/D,1);el.textContent=f(k<1?to*(1-Math.pow(2,-10*k)):to);if(k<1)requestAnimationFrame(s)})(t0)}
+setInterval(()=>{$("#ck").textContent=new Date().toLocaleTimeString("en-GB")},1000);
+/* ===== حالت محلی (بدون سرور) ===== */
+const LK="gsm_local_v1",SEED=[{"id":1,"n":"GTA V","p":14.99,"s":12,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Open World","r":4.8,"y":2013,"c":["#2e7d32","#0b3d1a"],"d":"Rockstar Games","sales":190,"img":""},{"id":2,"n":"Cyberpunk 2077","p":29.99,"s":8,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Action RPG","r":4.5,"y":2020,"c":["#f5e600","#7a2cff"],"d":"CD Projekt Red","sales":30,"img":""},{"id":3,"n":"Red Dead Redemption 2","p":39.99,"s":5,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Open World","r":4.9,"y":2018,"c":["#a33","#2a0a0a"],"d":"Rockstar Games","sales":60,"img":""},{"id":4,"n":"Elden Ring","p":49.99,"s":10,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"RPG","r":4.9,"y":2022,"c":["#d4a017","#2b2410"],"d":"FromSoftware","sales":25,"img":""},{"id":5,"n":"Minecraft","p":19.99,"s":50,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Indie","r":4.7,"y":2011,"c":["#4caf50","#6d4c2f"],"d":"Mojang","sales":300,"img":""},{"id":6,"n":"Forza Horizon 5","p":34.99,"s":7,"hidden":0,"pl":["PC","Xbox"],"g":"Racing","r":4.6,"y":2021,"c":["#ff7a00","#0a4a8a"],"d":"Playground Games","sales":40,"img":""},{"id":7,"n":"EA Sports FC","p":59.99,"s":20,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Sports","r":4,"y":2025,"c":["#00c853","#002b36"],"d":"EA Sports","sales":35,"img":""},{"id":8,"n":"Resident Evil 4","p":39.99,"s":6,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Horror","r":4.8,"y":2023,"c":["#b71c1c","#111"],"d":"Capcom","sales":10,"img":""},{"id":9,"n":"God of War","p":29.99,"s":9,"hidden":0,"pl":["PC","PS5"],"g":"Action","r":4.9,"y":2018,"c":["#5c6bc0","#1a1a2e"],"d":"Santa Monica Studio","sales":23,"img":""},{"id":10,"n":"The Witcher 3","p":24.99,"s":15,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"RPG","r":4.9,"y":2015,"c":["#8d99ae","#2b2d42"],"d":"CD Projekt Red","sales":50,"img":""},{"id":11,"n":"Hogwarts Legacy","p":44.99,"s":0,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"Adventure","r":4.4,"y":2023,"c":["#7b1fa2","#1b0f3a"],"d":"Avalanche Software","sales":22,"img":""},{"id":12,"n":"Call of Duty","p":59.99,"s":30,"hidden":0,"pl":["PC","PS5","Xbox"],"g":"FPS","r":4.2,"y":2024,"c":["#455a64","#10171a"],"d":"Activision","sales":50,"img":""}],SALT="gsm-local-v1-7f3a",LH0="f6ee76b26f1369ae10d59ff41c93841d9aa6acbce8201356391cb50cd88c1819";
+const hx=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+async function kdf(u,p){const k=await crypto.subtle.importKey("raw",new TextEncoder().encode(u+"\n"+p),"PBKDF2",false,["deriveBits"]);return hx(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:new TextEncoder().encode(SALT),iterations:200000},k,256))}
+function lseed(){const names=["علی رضایی","سارا محمدی","رضا احمدی","مریم کریمی","حسین موسوی","نگار صادقی","امیر حسینی","نرگس قاسمی"],P=SEED.map(x=>({...x})),o=[],now=Date.now();
+ for(let i=0;i<28;i++){const ln=[{id:1+(i*5)%12,q:1+i%2}];if(i%3==0)ln.push({id:1+(i*7+3)%12,q:1});
+  const sub=ln.reduce((a,l)=>a+Math.round(P[l.id-1].p*100)*l.q,0),ds=sub>=10000?Math.round(sub*.1):0,usd=(sub-ds+Math.round((sub-ds)*.09))/100,m=i%3?"crypto":"zarinpal",st=i%7==5?"failed":i%5==4?"pending":"paid";
+  o.push({no:"GSM-"+(0xA1B2C3D4E+i*7919).toString(16).toUpperCase().slice(0,10),items:ln.map(l=>P[l.id-1].n+" ×"+l.q),lines:ln,usd,irr:m==="zarinpal"?Math.round(usd*600000):null,method:m,name:names[i%8],email:"user"+(i%8)+"@example.com",phone:"0912"+String(1000000+i*3711).slice(0,7),track:st==="paid"?String(8000000+i*131):null,status:st,created:now-Math.floor(i*12.5*36e5)-i*977e3,demo:1})}
+ return{products:P,orders:o,settings:{rate:600000,announce:"",maintenance:false},audit:[],pid:13}}
+const LD=()=>{try{const d=JSON.parse(localStorage.getItem(LK));if(d&&d.products)return d}catch{}const d=lseed();localStorage.setItem(LK,JSON.stringify(d));return d};
+const LS=d=>{try{localStorage.setItem(LK,JSON.stringify(d))}catch{throw new Error("فضای ذخیره‌سازی مرورگر پر است؛ تصاویر کم‌حجم‌تر بگذارید یا پشتیبان بگیرید.")}};
+function lclean(b){const E=t=>new Error(t),n=String(b.n||"").trim(),p=Math.round(Number(b.p)*100)/100,s=Number(b.s),g=String(b.g||"").trim();
+ if(!n)throw E("نام بازی الزامی است.");if(!(p>0&&p<10000)||!Number.isInteger(s)||s<0||s>1e5)throw E("قیمت یا موجودی نامعتبر است.");if(!g)throw E("ژانر الزامی است.");
+ return{n:n.slice(0,80),p,s,hidden:b.hidden?1:0,pl:(b.pl||[]).slice(0,6),g:g.slice(0,30),r:Math.min(Math.max(+b.r||0,0),5),y:+b.y||new Date().getFullYear(),c:b.c||["#7c5cff","#19d3ff"],d:String(b.d||"").slice(0,60),sales:+b.sales||0,img:b.img||""}}
+function lstock(d,x,ns){const f=(k)=>{for(const l of x.lines||[]){const p=d.products.find(y=>y.id===l.id);if(p)p.s=Math.max(p.s+k*l.q,0)}};if(ns==="paid"&&x.status!=="paid")f(-1);if(x.status==="paid"&&ns!=="paid")f(1)}
+async function lapi(u,o={}){
+ const url=new URL(u,"http://x"),seg=url.pathname.replace("/api/admin/","").split("/"),A=seg[0],id=seg[1],m=(o.method||"GET").toUpperCase(),b=o.body||{},q=url.searchParams,E=t=>new Error(t);
+ if(A==="login"){const k=JSON.parse(localStorage.gsm_lk||'{"n":0,"u":0}');if(k.u>Date.now())throw E("به‌دلیل تلاش‌های ناموفق، ۱۰ دقیقه ورود قفل است.");
+  await new Promise(r=>setTimeout(r,400));let ok=false;try{ok=await kdf(String(b.username||""),String(b.password||""))===(localStorage.gsm_lh||LH0)}catch{throw E("مرورگر اجازهٔ رمزنگاری نمی‌دهد؛ از Chrome یا Edge استفاده کنید.")}
+  if(!ok){k.n++;if(k.n>=5){k.u=Date.now()+6e5;k.n=0}localStorage.gsm_lk=JSON.stringify(k);throw E("نام کاربری یا رمز عبور اشتباه است.")}
+  localStorage.gsm_lk=JSON.stringify({n:0,u:0});sessionStorage.gsm_ok="1";sessionStorage.gsm_u=b.username;sessionStorage.gsm_t=Date.now();return{ok:true,csrf:"local"}}
+ if(sessionStorage.gsm_ok!=="1"){if(A!=="me")showLogin();throw E(A==="me"?"unauthorized":"نشست منقضی شد")}
+ const d=LD(),fp=i=>d.products.find(p=>p.id==i),fo=n=>d.orders.find(x=>x.no===n),au=(a,t,x)=>d.audit.unshift({ts:Date.now(),actor:"admin",action:a,target:t??null,detail:x?JSON.stringify(x):null,ip:"محلی"}),sv=r=>{d.audit.length=Math.min(d.audit.length,300);LS(d);return r};
+ if(A==="me")return{ok:true,user:"admin",csrf:"local"};
+ if(A==="logout"){sessionStorage.clear();return{ok:true}}
+ if(A==="stats"){const pd=d.orders.filter(x=>x.status==="paid"),days={},mt={},sold={};
+  for(const x of pd){if(x.created>Date.now()-14*864e5){const k=new Date(x.created).toISOString().slice(0,10);days[k]=(days[k]||0)+x.usd}mt[x.method]=(mt[x.method]||0)+1;for(const l of x.lines||[])sold[l.id]=(sold[l.id]||0)+l.q}
+  return{n:d.orders.length,rev:Math.round(pd.reduce((a,x)=>a+x.usd,0)*100)/100,paid:pd.length,pending:d.orders.filter(x=>x.status==="pending").length,failed:d.orders.filter(x=>x.status==="failed").length,days:Object.entries(days).sort().map(([k,rev])=>({d:k,rev:Math.round(rev*100)/100})),methods:Object.entries(mt).map(([method,n])=>({method,n})),top:Object.entries(sold).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([i,qq])=>({n:(fp(i)||{}).n,q:qq})),low:d.products.filter(p=>p.s<=5).length}}
+ if(A==="orders"){
+  if(!id){let l=d.orders.slice().sort((a,b)=>b.created-a.created);const st=q.get("status"),s=(q.get("q")||"").toLowerCase(),lim=Math.min(+q.get("limit")||50,100),pg=Math.max(+q.get("page")||1,1);if(st)l=l.filter(x=>x.status===st);if(s)l=l.filter(x=>[x.no,x.email,x.name].some(v=>v.toLowerCase().includes(s)));return{items:l.slice((pg-1)*lim,pg*lim),total:l.length,page:pg,limit:lim}}
+  const x=fo(decodeURIComponent(id));if(!x)throw E("سفارش پیدا نشد");
+  if(m==="PATCH"){if(!["paid","pending","failed"].includes(b.status))throw E("وضعیت نامعتبر");if(x.status!==b.status){lstock(d,x,b.status);au("order.status",x.no,{from:x.status,to:b.status});x.status=b.status}return sv({ok:true})}
+  if(m==="DELETE"){if(x.status==="paid")lstock(d,x,"failed");d.orders=d.orders.filter(y=>y!==x);au("order.delete",x.no,{name:x.name});return sv({ok:true})}}
+ if(A==="products"){
+  if(m==="GET")return d.products.slice().sort((a,b)=>a.id-b.id);
+  if(m==="POST"){const p={id:d.pid++,...lclean(b)};d.products.push(p);au("product.create",String(p.id),{name:p.n});return sv({ok:true,id:p.id})}
+  const p=fp(id);if(!p)throw E("محصول پیدا نشد");
+  if(m==="PUT"){const c=lclean(b);Object.assign(p,c);au("product.update",String(p.id),{name:c.n,to:{p:c.p,s:c.s,hidden:c.hidden}});return sv({ok:true})}
+  if(m==="DELETE"){d.products=d.products.filter(x=>x!==p);au("product.delete",String(p.id),{name:p.n});return sv({ok:true})}}
+ if(A==="customers"){const g={};for(const x of d.orders){const k=x.email.toLowerCase(),c=g[k]||(g[k]={name:x.name,email:k,phone:x.phone,orders:0,spent:0,last:0});c.orders++;if(x.status==="paid")c.spent+=x.usd;c.last=Math.max(c.last,x.created)}return Object.values(g).map(c=>({...c,spent:Math.round(c.spent*100)/100})).sort((a,b)=>b.spent-a.spent)}
+ if(A==="settings"){if(m==="GET")return d.settings;const r=Number(b.rate);if(!Number.isInteger(r)||r<0)throw E("نرخ دلار نامعتبر است (عدد صحیح، صفر = غیرفعال).");d.settings={rate:r,announce:String(b.announce||"").slice(0,200),maintenance:!!b.maintenance};au("settings.update",null,d.settings);return sv({ok:true})}
+ if(A==="sessions")return m==="GET"?[{cur:true,ip:"این مرورگر",ua:navigator.userAgent,created:+sessionStorage.gsm_t||Date.now()}]:{ok:true,n:0};
+ if(A==="password"){const uu=sessionStorage.gsm_u||"";if(await kdf(uu,String(b.current||""))!==(localStorage.gsm_lh||LH0))throw E("رمز فعلی اشتباه است.");if(String(b.next||"").length<10)throw E("رمز جدید باید حداقل ۱۰ کاراکتر باشد.");localStorage.gsm_lh=await kdf(uu,b.next);au("password.change");return sv({ok:true})}
+ if(A==="audit")return d.audit.slice(0,Math.min(+q.get("limit")||50,200));
+ throw E("این بخش در حالت محلی پشتیبانی نمی‌شود")}
+const iu=i=>!i?"":i.startsWith("data:")?i:(LOCAL?"":"/")+i;
+const shrink=f=>new Promise((ok,no)=>{const i=new Image,u=URL.createObjectURL(f);i.onload=()=>{const k=Math.min(1,640/i.width),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL("image/jpeg",.82))};i.onerror=()=>no(new Error("تصویر نامعتبر است."));i.src=u});
+const dl=(name,txt,type)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),999)};
+const lcsv=()=>"\ufeff"+[["no","name","email","phone","items","usd","irr","method","status","track","created"],...LD().orders.map(o=>[o.no,o.name,o.email,o.phone,o.items.join(" | "),o.usd,o.irr,o.method,o.status,o.track,new Date(o.created).toISOString()])].map(r=>r.map(v=>{v=String(v??"");if(/^[=+\-@\t\r]/.test(v))v="'"+v;return'"'+v.replace(/"/g,'""')+'"'}).join(",")).join("\r\n");
+document.addEventListener("click",e=>{if(!LOCAL)return;const a=e.target.closest('a[href^="/api/admin/"]');if(!a)return;e.preventDefault();a.getAttribute("href").includes("backup")?dl("gsm-local-backup.json",JSON.stringify(LD()),"application/json"):dl("orders.csv",lcsv(),"text/csv;charset=utf-8")});
+function localExtras(){$("#view .grid").insertAdjacentHTML("beforeend",`<div class="gl card rv"><h3>🧪 داده‌های محلی</h3><p class="mu" style="margin-bottom:14px">در حالت بدون سرور همه‌چیز فقط در همین مرورگر ذخیره می‌شود. سفارش‌های فعلی نمونه‌اند.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><label class="btn g sm">⬆ بازگردانی از فایل پشتیبان<input type="file" id="li" accept=".json" hidden></label><button class="btn r sm" id="lr">🧹 پاک‌کردن سفارش‌های نمونه</button></div></div>`);stag();
+ $("#li").onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d.products)||!Array.isArray(d.orders))throw 0;LS(d);toast("پشتیبان بازگردانی شد");sett()}catch{toast("فایل پشتیبان معتبر نیست",1)}};
+ $("#lr").onclick=()=>{if(!confirm("همهٔ سفارش‌های نمونه حذف شوند؟"))return;const d=LD();d.orders=d.orders.filter(o=>!o.demo);LS(d);toast("سفارش‌های نمونه پاک شد");sett()}}
+function localNotice(){$("#lb").classList.remove("hide");$("#ln").classList.remove("hide")}
+/* ===== پایان حالت محلی ===== */
+/* ورود / خروج */
+$("#ey").onclick=()=>{const p=$("#p");p.type=p.type==="password"?"text":"password"};
+const showLogin=()=>{clearInterval(POLL);LAST=null;$("#app").classList.add("hide");$("#login").classList.remove("hide");$("#lf").className="gl lc tilt"};
+function showApp(){$("#login").classList.add("hide");$("#app").classList.remove("hide");go("dash");clearInterval(POLL);POLL=setInterval(poll,15000)}
+$("#lf").onsubmit=async e=>{e.preventDefault();const f=$("#lf");$("#er").textContent="";
+ try{CSRF=(await api("/api/admin/login",{method:"POST",body:{username:$("#u").value,password:$("#p").value}})).csrf;boom(innerWidth/2,innerHeight/2);f.classList.add("out");setTimeout(showApp,650)}
+ catch(x){$("#er").textContent=x.message;f.classList.remove("bad");void f.offsetWidth;f.classList.add("bad")}};
+$("#lo").onclick=async()=>{try{await api("/api/admin/logout",{method:"POST"})}catch{}$("#p").value="";showLogin()};
+/* مسیریابی */
+const V={dash:["داشبورد","خلاصهٔ لحظه‌ایِ فروش",()=>dash()],orders:["سفارش‌ها","جستجو، فیلتر و مدیریت وضعیت",orders],prods:["محصولات","افزودن، ویرایش، مخفی‌سازی و حذف بازی‌ها",prods],cust:["مشتریان","خریداران و مجموع خرید",custs],sett:["تنظیمات سایت","نرخ دلار، اطلاعیه، امنیت و پشتیبان‌گیری",sett],log:["گزارش امنیتی","ثبت ورودها و تغییرات پنل",logv]};
+const mv=()=>{const b=$(".nv.on[data-v]"),i=$("#ind");if(b){i.style.top=b.offsetTop+"px";i.style.height=b.offsetHeight+"px"}};
+$$("[data-v]").forEach(b=>b.onclick=()=>go(b.dataset.v));addEventListener("resize",mv);
+async function go(v){VIEW=v;$$("[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===v));mv();$("#tt").textContent=V[v][0];$("#sub").textContent=V[v][1];
+ $("#view").innerHTML='<div class="grid g4"><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+ try{await V[v][2]()}catch(e){toast(e.message,1)}}
+const stag=()=>$$("#view .rv").forEach((e,i)=>e.style.setProperty("--i",i));
+async function poll(){try{const s=await api("/api/admin/stats");if(LAST!==null&&s.n>LAST){toast("🔔 "+fa(s.n-LAST)+" سفارش جدید ثبت شد!");boom(120,innerHeight-80);if(VIEW==="dash")dash(s);if(VIEW==="orders")ol()}LAST=s.n}catch{}}
+/* داشبورد */
+const smooth=p=>p.reduce((d,[x,y],i)=>i?d+` C${(p[i-1][0]+x)/2},${p[i-1][1]} ${(p[i-1][0]+x)/2},${y} ${x},${y}`:`M${x},${y}`,"");
+async function dash(s){s=s||await api("/api/admin/stats");LAST=s.n;const days=[];
+ for(let i=13;i>=0;i--){const d=new Date(Date.now()-i*864e5).toISOString().slice(0,10);days.push([d,(s.days.find(x=>x.d===d)||{}).rev||0])}
+ const mx=Math.max(...days.map(d=>d[1]),1),W=600,H=210,pts=days.map((d,i)=>[20+i*(W-40)/13,H-30-(d[1]/mx)*(H-60)]),L=pts.at(-1);
+ const C=2*Math.PI*52,tot=s.methods.reduce((a,m)=>a+m.n,0)||1,zr=(s.methods.find(m=>m.method==="zarinpal")||{n:0}).n,cr=(s.methods.find(m=>m.method==="crypto")||{n:0}).n;
+ const cards=[["💰","درآمد پرداخت‌شده",s.rev,v=>"$"+v.toLocaleString("en",{maximumFractionDigits:2})],["🧾","کل سفارش‌ها",s.n,fa],["✅","سفارش موفق",s.paid,fa],["⏳","در انتظار پرداخت",s.pending,fa],["❌","ناموفق",s.failed,fa],["⚠️","کم‌موجود (۵ یا کمتر)",s.low,fa]];
+ $("#view").innerHTML=`<div class="grid g4">${cards.map(c=>`<div class="gl st rv"><span class="ic">${c[0]}</span><div class="mu">${c[1]}</div><div class="n" data-t="${c[2]}">0</div></div>`).join("")}</div>
+ <div class="grid g2"><div class="gl card rv"><h3>درآمد ۱۴ روز اخیر (دلار)</h3><svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="lg"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#19d3ff"/></linearGradient><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c5cff" stop-opacity=".5"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/></linearGradient></defs>
+ <path class="ar" d="${smooth(pts)} L${L[0]},${H-30} L${pts[0][0]},${H-30}Z"/><path class="ln" pathLength="1" d="${smooth(pts)}"/>
+ ${pts.map((p,i)=>`<circle class="dt" r="4" cx="${p[0]}" cy="${p[1]}" style="animation-delay:${.6+i*.1}s"><title>${days[i][0]}: $${days[i][1]}</title></circle>`).join("")}<circle class="lp" r="5" cx="${L[0]}" cy="${L[1]}"/></svg></div>
+ <div class="gl card rv"><h3>روش پرداخت</h3><svg viewBox="0 0 140 140" width="150" style="display:block;margin:auto"><g transform="rotate(-90 70 70)" fill="none" stroke-width="16"><circle cx="70" cy="70" r="52" stroke="rgba(255,255,255,.08)"/><circle class="dn" data-l="${zr/tot*C}" cx="70" cy="70" r="52" stroke="#7c5cff" stroke-dasharray="0 ${C}" stroke-linecap="round" style="transition:stroke-dasharray 1.6s var(--ez)"/><circle class="dn" data-l="${cr/tot*C}" data-o="${-zr/tot*C}" cx="70" cy="70" r="52" stroke="#19d3ff" stroke-dasharray="0 ${C}" stroke-linecap="round" style="transition:stroke-dasharray 1.6s var(--ez) .3s"/></g></svg>
+ <p class="mu" style="text-align:center;margin-top:10px"><span style="color:#7c5cff">●</span> ریالی ${fa(zr)} &nbsp; <span style="color:#19d3ff">●</span> دلاری ${fa(cr)}</p></div></div>
+ <div class="gl card rv" style="margin-top:16px"><h3>🏆 پرفروش‌ترین بازی‌ها</h3>${s.top.length?s.top.map(t=>`<div style="display:flex;justify-content:space-between"><span>${esc(t.n)}</span><span class="mu">${fa(t.q)} فروش</span></div><div class="bar"><i data-w="${t.q/s.top[0].q*100}"></i></div>`).join(""):'<p class="mu">هنوز فروشی ثبت نشده است.</p>'}</div>`;
+ stag();$$("#view [data-t]").forEach((e,i)=>countUp(e,+e.dataset.t,cards[i][3]));
+ setTimeout(()=>{$$("#view .bar i").forEach(b=>b.style.width=b.dataset.w+"%");$$("#view .dn").forEach(c=>{c.style.strokeDasharray=`${Math.max(c.dataset.l-4,0)} ${C}`;if(c.dataset.o)c.style.strokeDashoffset=c.dataset.o})},150)}
+/* سفارش‌ها */
+const SL={paid:"پرداخت‌شده",pending:"در انتظار",failed:"ناموفق"},amt=o=>o.method==="zarinpal"?fa(o.irr)+" ریال":"$"+o.usd.toFixed(2),dt=t=>new Date(t).toLocaleString("fa-IR");
+let ODATA=[],tm;
+function orders(){$("#view").innerHTML=`<div class="tb rv">${[["","همه"],["paid","پرداخت‌شده"],["pending","در انتظار"],["failed","ناموفق"]].map(c=>`<button class="chip ${c[0]===OF.st?"on":""}" data-f="${c[0]}">${c[1]}</button>`).join("")}<a class="btn g sm" href="/api/admin/export/orders.csv" style="text-decoration:none">⬇ CSV</a><input class="sr" id="sq" placeholder="🔍 جستجو: شمارهٔ سفارش، نام یا ایمیل" value="${esc(OF.q)}"></div><div id="ot"></div>`;
+ $$(".chip").forEach(c=>c.onclick=()=>{OF.st=c.dataset.f;OF.pg=1;$$(".chip").forEach(x=>x.classList.toggle("on",x===c));ol()});
+ $("#sq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{OF.q=e.target.value.trim();OF.pg=1;ol()},350)};return ol()}
+async function ol(){const p=new URLSearchParams({limit:12,page:OF.pg});if(OF.st)p.set("status",OF.st);if(OF.q)p.set("q",OF.q);
+ const r=await api("/api/admin/orders?"+p),pages=Math.max(Math.ceil(r.total/r.limit),1);ODATA=r.items;if(!$("#ot"))return;
+ $("#ot").innerHTML=`<div class="gl card tw"><table><thead><tr><th>سفارش</th><th>خریدار</th><th>مبلغ</th><th>روش</th><th>وضعیت</th><th>زمان</th></tr></thead><tbody>${r.items.length?r.items.map((o,i)=>`<tr style="--i:${i}" data-n="${esc(o.no)}"><td>${esc(o.no)}</td><td>${esc(o.name)}</td><td>${amt(o)}</td><td>${o.method==="zarinpal"?"ریالی":"دلاری"}</td><td><span class="bd ${o.status}">${SL[o.status]}</span></td><td class="mu">${dt(o.created)}</td></tr>`).join(""):'<tr style="--i:0"><td colspan="6" class="mu" style="text-align:center">سفارشی پیدا نشد</td></tr>'}</tbody></table></div>
+ <div class="pg"><button class="btn g sm" id="pn" ${OF.pg>=pages?"disabled":""}>→ بعدی</button><span class="mu">صفحهٔ ${fa(OF.pg)} از ${fa(pages)} · ${fa(r.total)} سفارش</span><button class="btn g sm" id="pp" ${OF.pg<=1?"disabled":""}>قبلی ←</button></div>`;
+ $("#pn").onclick=()=>{OF.pg++;ol()};$("#pp").onclick=()=>{OF.pg--;ol()};$$("#ot tbody tr[data-n]").forEach(r=>r.onclick=()=>detail(ODATA.find(o=>o.no===r.dataset.n)))}
+function detail(o){const m=document.createElement("div");m.className="ov";
+ m.innerHTML=`<div class="gl md"><h3 style="margin-bottom:12px">سفارش ${esc(o.no)}</h3><p><span class="mu">خریدار</span><span>${esc(o.name)}</span></p><p><span class="mu">ایمیل</span><span dir="ltr">${esc(o.email)}</span></p><p><span class="mu">موبایل</span><span dir="ltr">${esc(o.phone)}</span></p><p><span class="mu">بازی‌ها</span><span>${o.items.map(esc).join("، ")}</span></p><p><span class="mu">مبلغ</span><span>${amt(o)}</span></p><p><span class="mu">کد پیگیری</span><span>${esc(o.track||"—")}</span></p><p><span class="mu">وضعیت</span><span class="bd ${o.status}">${SL[o.status]}</span></p>
+ <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap">${["paid","pending","failed"].filter(s=>s!==o.status).map(s=>`<button class="btn sm ${s==="paid"?"":"g"}" data-s="${s}">${s==="paid"?"✔ تأیید پرداخت":s==="failed"?"✖ ناموفق":"⏳ در انتظار"}</button>`).join("")}<button class="btn r sm" data-d>🗑 حذف</button><button class="btn g sm" data-x style="margin-right:auto">بستن</button></div></div>`;
+ const cl=()=>{m.style.transition=".25s";m.style.opacity=0;setTimeout(()=>m.remove(),250)};m.onclick=e=>{if(e.target===m||e.target.dataset.x!==undefined)cl()};
+ m.querySelectorAll("[data-s]").forEach(b=>b.onclick=async e=>{try{await api("/api/admin/orders/"+encodeURIComponent(o.no),{method:"PATCH",body:{status:b.dataset.s}});toast("وضعیت سفارش به‌روز شد");if(b.dataset.s==="paid")boom(e.clientX,e.clientY);cl();ol()}catch(x){toast(x.message,1)}});m.querySelector("[data-d]").onclick=async()=>{if(!confirm("سفارش "+o.no+" حذف شود؟ (اگر پرداخت‌شده باشد موجودی برمی‌گردد)"))return;try{await api("/api/admin/orders/"+encodeURIComponent(o.no),{method:"DELETE"});toast("سفارش حذف شد");cl();ol()}catch(x){toast(x.message,1)}};document.body.append(m)}
+/* محصولات */
+const slug=n=>String(n).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),PLS=["PC","PS5","PS4","Xbox","Switch"];let PR=[];
+const pimg=p=>iu(p.img||"images/"+slug(p.n)+".jpg");
+async function prods(){PR=await api("/api/admin/products");
+ $("#view").innerHTML=`<div class="tb rv"><button class="btn sm" id="np">➕ محصول جدید</button><span class="mu">${fa(PR.length)} محصول · ${fa(PR.filter(p=>p.hidden).length)} مخفی</span></div><div class="grid pgrid">${PR.map((p,i)=>{const b=p.hidden?["failed","مخفی"]:p.s===0?["failed","ناموجود"]:p.s<=5?["pending","کم‌موجود"]:["paid","موجود"],c=p.s===0?"z":p.s<=5?"w":"";
+ return `<div class="gl pc rv ${p.hidden?"hid":""}" data-id="${p.id}"><div class="im"><img src="${esc(pimg(p))}" alt="" onerror="this.remove()"><span class="bd ${b[0]}">${b[1]}</span></div><div class="bo"><h4>${esc(p.n)}</h4><div class="bar ${c}"><i data-w="${Math.min(p.s/40*100,100)}"></i></div>
+ <div class="row"><label>قیمت ($)<input class="pin" type="number" step="0.01" min="0.01" value="${p.p}"></label><label>موجودی<input class="pin" type="number" min="0" value="${p.s}"></label></div><div class="row" style="margin-top:14px"><button class="btn sm" data-q style="flex:1">ذخیره</button><button class="btn g sm" data-e>✏️ ویرایش کامل</button></div></div></div>`}).join("")}</div>`;stag();
+ setTimeout(()=>$$("#view .bar i").forEach(b=>b.style.width=b.dataset.w+"%"),200);$("#np").onclick=()=>pform();
+ $$("#view .pc").forEach(r=>{const p=PR.find(x=>x.id==r.dataset.id);r.querySelector("[data-e]").onclick=()=>pform(p);
+  r.querySelector("[data-q]").onclick=async e=>{const b=e.currentTarget,[pp,ss]=r.querySelectorAll("input");try{await api("/api/admin/products/"+p.id,{method:"PUT",body:{...p,p:+pp.value,s:+ss.value}});b.classList.add("done");b.textContent="✔ ذخیره شد";toast("تغییرات ذخیره شد");boom(e.clientX,e.clientY);setTimeout(()=>prods(),900)}catch(x){toast(x.message,1)}}})}
+function pform(p){const n=!p;p=p||{n:"",p:"",s:10,g:"Action",d:"",y:new Date().getFullYear(),r:4.5,sales:0,pl:["PC","PS5"],c:["#7c5cff","#19d3ff"],img:"",hidden:0};
+ const f=(id,l,v,t="text",x="")=>`<label class="fl">${l}<input id="f_${id}" class="pin ${t==="text"?"t":""}" type="${t}" value="${esc(v)}" ${x}></label>`,m=document.createElement("div");m.className="ov";
+ m.innerHTML=`<div class="gl md big"><h3>${n?"➕ محصول جدید":"✏️ ویرایش "+esc(p.n)}</h3><div class="fg">${f("n","نام بازی",p.n)}${f("g","ژانر",p.g)}${f("p","قیمت (دلار)",p.p,"number",'step="0.01" min="0.01"')}${f("s","موجودی",p.s,"number",'min="0"')}${f("d","سازنده",p.d)}${f("y","سال انتشار",p.y,"number")}${f("r","امتیاز (۰ تا ۵)",p.r,"number",'step="0.1" min="0" max="5"')}${f("sales","تعداد فروش (میلیون)",p.sales,"number",'min="0"')}${f("c1","رنگ کاور ۱",p.c[0],"color")}${f("c2","رنگ کاور ۲",p.c[1],"color")}</div>
+ <p style="border:0;margin-top:12px;flex-wrap:wrap;justify-content:flex-start">${PLS.map(x=>`<label class="cb"><input type="checkbox" value="${x}" ${p.pl.includes(x)?"checked":""}>${x}</label>`).join("")}</p>
+ <div style="margin-top:10px;display:flex;gap:10px;align-items:center"><img id="pv" src="${esc(iu(p.img))}" style="width:90px;height:56px;object-fit:cover;border-radius:10px;background:#12132e" onerror="this.style.opacity=.2"><label class="btn g sm">📷 آپلود تصویر<input type="file" id="fi" accept="image/jpeg,image/png,image/webp" hidden></label><span class="mu" id="im">${p.img?esc(p.img):"بدون تصویر (کاور رنگی نمایش داده می‌شود)"}</span></div>
+ <label class="sw"><input type="checkbox" id="f_h" ${p.hidden?"checked":""}> مخفی از فروشگاه (قابل خرید نیست)</label>
+ <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap"><button class="btn sm" id="sv">💾 ذخیره</button>${n?"":'<button class="btn r sm" id="dl">🗑 حذف</button>'}<button class="btn g sm" id="cx" style="margin-right:auto">بستن</button></div></div>`;
+ let img=p.img||"";const cl=()=>{m.style.transition=".25s";m.style.opacity=0;setTimeout(()=>m.remove(),250)};m.onclick=e=>{if(e.target===m)cl()};m.querySelector("#cx").onclick=cl;
+ m.querySelector("#fi").onchange=async e=>{const fl=e.target.files[0];if(!fl)return;try{if(LOCAL)img=await shrink(fl);else{const r=await fetch("/api/admin/upload",{method:"POST",headers:{"Content-Type":fl.type,"X-CSRF-Token":CSRF},body:fl}),j=await r.json();if(!r.ok)throw new Error(j.error||"خطا");img=j.path}$("#pv").src=iu(img);$("#pv").style.opacity=1;$("#im").textContent=img.startsWith("data:")?"تصویر انتخاب شد":img;toast("تصویر آماده شد")}catch(x){toast(x.message,1)}};
+ m.querySelector("#sv").onclick=async e=>{const v=id=>m.querySelector("#f_"+id).value,body={n:v("n"),g:v("g"),d:v("d"),p:+v("p"),s:+v("s"),y:+v("y"),r:+v("r"),sales:+v("sales"),c:[v("c1"),v("c2")],pl:[...m.querySelectorAll(".cb input:checked")].map(x=>x.value),img,hidden:m.querySelector("#f_h").checked};
+  try{await api("/api/admin/products"+(n?"":"/"+p.id),{method:n?"POST":"PUT",body});toast(n?"محصول اضافه شد و روی سایت نمایش داده می‌شود":"محصول ذخیره شد");boom(e.clientX,e.clientY);cl();prods()}catch(x){toast(x.message,1)}};
+ if(!n)m.querySelector("#dl").onclick=async()=>{if(!confirm("«"+p.n+"» برای همیشه حذف شود؟"))return;try{await api("/api/admin/products/"+p.id,{method:"DELETE"});toast("محصول حذف شد");cl();prods()}catch(x){toast(x.message,1)}};document.body.append(m)}
+/* مشتریان */
+async function custs(){const l=await api("/api/admin/customers");
+ $("#view").innerHTML=`<div class="gl card tw rv"><table><thead><tr><th>نام</th><th>ایمیل</th><th>موبایل</th><th>سفارش‌ها</th><th>مجموع خرید</th><th>آخرین سفارش</th></tr></thead><tbody>${l.length?l.map((c,i)=>`<tr style="--i:${i}"><td>${esc(c.name)}</td><td dir="ltr">${esc(c.email)}</td><td dir="ltr">${esc(c.phone)}</td><td>${fa(c.orders)}</td><td>$${c.spent.toFixed(2)}</td><td class="mu">${dt(c.last)}</td></tr>`).join(""):'<tr style="--i:0"><td colspan="6" class="mu" style="text-align:center">هنوز مشتری‌ای ثبت نشده است</td></tr>'}</tbody></table></div>`;stag()}
+/* تنظیمات سایت */
+async function sett(){const [c,ss]=await Promise.all([api("/api/admin/settings"),api("/api/admin/sessions")]);
+ $("#view").innerHTML=`<div class="grid g4" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))"><div class="gl card rv"><h3>🏪 تنظیمات فروشگاه</h3>
+ <label class="fl">نرخ هر دلار به ریال (۰ = غیرفعال‌کردن درگاه ریالی)<input id="s_r" class="pin" type="number" min="0" value="${c.rate}"></label>
+ <label class="fl" style="margin-top:12px">اطلاعیهٔ بالای سایت (خالی = بدون اطلاعیه)<input id="s_a" class="pin t" maxlength="200" value="${esc(c.announce)}"></label>
+ <label class="sw"><input type="checkbox" id="s_m" ${c.maintenance?"checked":""}> حالت تعمیر: خرید موقتاً بسته شود</label><button class="btn w" id="ss">💾 ذخیرهٔ تنظیمات</button></div>
+ <div class="gl card rv"><h3>🔐 امنیت حساب</h3><label class="fl">رمز فعلی<input id="p_c" class="pin" type="password" autocomplete="current-password"></label><label class="fl" style="margin-top:12px">رمز جدید (حداقل ۱۰ کاراکتر)<input id="p_n" class="pin" type="password" autocomplete="new-password"></label><button class="btn w" id="pc">تغییر رمز</button>
+ <p class="mu" style="margin-top:16px">نشست‌های فعال (${fa(ss.length)})</p>${ss.map(x=>`<p class="mu" dir="ltr" style="margin-top:6px">${x.cur?"🟢 ":"⚪ "}${esc(x.ip||"?")} · ${dt(x.created)}<br><span style="opacity:.6">${esc((x.ua||"").slice(0,60))}</span></p>`).join("")}<button class="btn g sm" id="rv" style="margin-top:12px">خروج از همهٔ دستگاه‌های دیگر</button></div>
+ <div class="gl card rv"><h3>💾 پشتیبان‌گیری و خروجی</h3><p class="mu" style="margin-bottom:14px">نسخهٔ کامل دیتابیس (سفارش‌ها، محصولات، تنظیمات) یا فهرست سفارش‌ها برای Excel.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn sm" href="/api/admin/backup" style="text-decoration:none">⬇ دانلود پشتیبان دیتابیس</a><a class="btn g sm" href="/api/admin/export/orders.csv" style="text-decoration:none">⬇ سفارش‌ها (CSV)</a></div></div></div>`;stag();
+ if(LOCAL)localExtras();
+ $("#ss").onclick=async e=>{try{await api("/api/admin/settings",{method:"PUT",body:{rate:+$("#s_r").value,announce:$("#s_a").value,maintenance:$("#s_m").checked}});toast("تنظیمات ذخیره شد و روی سایت اعمال شد");boom(e.clientX,e.clientY)}catch(x){toast(x.message,1)}};
+ $("#pc").onclick=async()=>{try{await api("/api/admin/password",{method:"POST",body:{current:$("#p_c").value,next:$("#p_n").value}});toast("رمز تغییر کرد؛ دستگاه‌های دیگر خارج شدند");sett()}catch(x){toast(x.message,1)}};
+ $("#rv").onclick=async()=>{try{const j=await api("/api/admin/sessions",{method:"DELETE"});toast(fa(j.n)+" نشست دیگر بسته شد");sett()}catch(x){toast(x.message,1)}}}
+/* گزارش امنیتی */
+const AL={"product.create":"افزودن محصول","product.delete":"حذف محصول","order.delete":"حذف سفارش","settings.update":"ویرایش تنظیمات","password.change":"تغییر رمز","sessions.revoke":"خروج از دستگاه‌ها","image.upload":"آپلود تصویر","backup.download":"دانلود پشتیبان","export.orders":"خروجی CSV","login.ok":"ورود موفق","login.fail":"ورود ناموفق",logout:"خروج","order.status":"تغییر وضعیت سفارش","product.update":"ویرایش محصول"};
+async function logv(){const l=await api("/api/admin/audit?limit=100");
+ $("#view").innerHTML=`<div class="gl card rv"><div class="tl">${l.length?l.map((a,i)=>{let d="";try{d=a.detail?Object.entries(JSON.parse(a.detail)).map(([k,v])=>k+": "+(typeof v==="object"?JSON.stringify(v):v)).join(" · "):""}catch{}
+ return `<div class="ev ${a.action==="login.fail"?"f":""}" style="--i:${i}"><span><b>${esc(AL[a.action]||a.action)}</b> ${a.target?`<span class="mu">· ${esc(a.target)}</span>`:""}<br><span class="mu" dir="ltr">${esc(d)}</span></span><span class="mu" dir="ltr">${esc(a.ip||"")}<br>${dt(a.ts)}</span></div>`}).join(""):'<p class="mu">رویدادی ثبت نشده است.</p>'}</div></div>`;stag()}
+(async()=>{try{const r=await fetch("/api/admin/me");if(!(r.headers.get("content-type")||"").includes("json"))throw 0}catch{LOCAL=true;localNotice()}api("/api/admin/me").then(j=>{CSRF=j.csrf;showApp()}).catch(showLogin)})();
+</script></body></html>
